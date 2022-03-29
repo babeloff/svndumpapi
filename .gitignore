@@ -1,5 +1,3 @@
-svndumpapi.ipr
-svndumpapi.iml
-svndumpapi.iws
-target/
+svndumpapi.i*
 .idea/
+build/

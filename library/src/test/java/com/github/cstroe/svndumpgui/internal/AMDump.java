@@ -1,22 +1,17 @@
 package com.github.cstroe.svndumpgui.internal;
 
+import com.github.cstroe.svndumpgui.api.NodeHeader;
 import com.github.cstroe.svndumpgui.api.RepositoryConsumer;
 import com.github.cstroe.svndumpgui.api.RepositoryValidator;
 import com.github.cstroe.svndumpgui.api.RepositoryWriter;
-import com.github.cstroe.svndumpgui.api.NodeHeader;
 import com.github.cstroe.svndumpgui.generated.ParseException;
 import com.github.cstroe.svndumpgui.generated.SvnDumpParser;
-import com.github.cstroe.svndumpgui.internal.transform.ClearRevision;
-import com.github.cstroe.svndumpgui.internal.transform.NodeAdd;
-import com.github.cstroe.svndumpgui.internal.transform.NodeHeaderChange;
-import com.github.cstroe.svndumpgui.internal.transform.NodeRemove;
-import com.github.cstroe.svndumpgui.internal.transform.PathChange;
-import com.github.cstroe.svndumpgui.internal.transform.UpdateAuthorForEmptyRevisions;
+import com.github.cstroe.svndumpgui.internal.transform.*;
 import com.github.cstroe.svndumpgui.internal.utility.SvnDumpCharStream;
+import com.github.cstroe.svndumpgui.internal.validate.PathCollisionValidator;
 import com.github.cstroe.svndumpgui.internal.validate.TerminatingValidator;
 import com.github.cstroe.svndumpgui.internal.writer.RepositoryAuthors;
 import com.github.cstroe.svndumpgui.internal.writer.RepositorySummary;
-import com.github.cstroe.svndumpgui.internal.validate.PathCollisionValidator;
 import com.github.cstroe.svndumpgui.internal.writer.SvnDumpWriter;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,7 +21,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
 import java.util.HashMap;
 
 public class AMDump {

@@ -5,127 +5,128 @@ options {
 }
 
 PARSER_BEGIN(SvnDumpParser)
-  package com.github.cstroe.svndumpgui.generated;
+package com.github.cstroe.svndumpgui.generated;
 
-  import java.io.InputStream;
-  import java.io.InputStreamReader;
-  import java.io.Reader;
-  import java.io.IOException;
-  import java.io.ByteArrayOutputStream;
-  import java.io.UnsupportedEncodingException;
-  import java.math.BigInteger;
-  import java.nio.ByteBuffer;
-  import java.nio.CharBuffer;
-  import java.nio.charset.StandardCharsets;
-  import java.util.Map;
-  import java.util.LinkedHashMap;
-  import java.security.MessageDigest;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 
-  import com.github.cstroe.svndumpgui.api.ContentChunk;
-  import com.github.cstroe.svndumpgui.api.RepositoryConsumer;
-  import com.github.cstroe.svndumpgui.api.Preamble;
-  import com.github.cstroe.svndumpgui.api.RepositoryWriter;
-  import com.github.cstroe.svndumpgui.internal.utility.SvnDumpCharStream;
-  import com.github.cstroe.svndumpgui.api.Node;
-  import com.github.cstroe.svndumpgui.api.NodeHeader;
-  import com.github.cstroe.svndumpgui.api.Property;
-  import com.github.cstroe.svndumpgui.api.Revision;
-  import com.github.cstroe.svndumpgui.internal.ContentChunkImpl;
-  import com.github.cstroe.svndumpgui.internal.PreambleImpl;
-  import com.github.cstroe.svndumpgui.internal.NodeImpl;
-  import com.github.cstroe.svndumpgui.internal.RevisionImpl;
-  import com.github.cstroe.svndumpgui.internal.utility.SvnDumpCharStream;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.security.MessageDigest;
 
-  public class SvnDumpParser {
-    private int fileContentChunkSize = 1024 * 1024 * 4; // 4 MB buffer for file content chunks by default
+import com.github.cstroe.svndumpgui.api.ContentChunk;
+import com.github.cstroe.svndumpgui.api.RepositoryConsumer;
+import com.github.cstroe.svndumpgui.api.Preamble;
+import com.github.cstroe.svndumpgui.api.RepositoryWriter;
+import com.github.cstroe.svndumpgui.internal.utility.SvnDumpCharStream;
+import com.github.cstroe.svndumpgui.api.Node;
+import com.github.cstroe.svndumpgui.api.NodeHeader;
+import com.github.cstroe.svndumpgui.api.Property;
+import com.github.cstroe.svndumpgui.api.Revision;
+import com.github.cstroe.svndumpgui.internal.ContentChunkImpl;
+import com.github.cstroe.svndumpgui.internal.PreambleImpl;
+import com.github.cstroe.svndumpgui.internal.NodeImpl;
+import com.github.cstroe.svndumpgui.internal.RevisionImpl;
+import com.github.cstroe.svndumpgui.internal.utility.SvnDumpCharStream;
 
-    public void setFileContentChunkSize(int size) {
-        this.fileContentChunkSize = size;
-    }
+public class SvnDumpParser {
+  private int fileContentChunkSize = 1024 * 1024 * 4; // 4 MB buffer for file content chunks by default
 
-    private String readCharacters(Integer numberOfBytes) {
-        if(numberOfBytes == null) {
-            return null;
-        }
-
-        try {
-            byte[] bytes = ((SvnDumpCharStream) token_source.input_stream).readBytes(numberOfBytes);
-            return new String(bytes, StandardCharsets.UTF_8);
-        } catch(IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private void readChunks(Long length, RepositoryConsumer consumer, String md5sum, String sha1sum, String path) throws ParseException {
-        if(length == null || length == 0) {
-            return;
-        }
-
-        MessageDigest md5;
-        MessageDigest sha1;
-
-        try {
-            md5 = MessageDigest.getInstance("MD5");
-            sha1 = MessageDigest.getInstance("SHA1");
-        } catch(java.security.NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        SvnDumpCharStream stream = (SvnDumpCharStream) token_source.input_stream;
-        long lengthLeft = length;
-        while(lengthLeft > 0) {
-            int chunkSize = (int) Math.min((long)fileContentChunkSize, lengthLeft);
-
-            ContentChunk chunk = null;
-            try {
-                byte[] freshBytes = stream.readBytes(chunkSize);
-                if(md5sum != null) {
-                    md5.update(freshBytes);
-                }
-                if(sha1sum != null) {
-                    sha1.update(freshBytes);
-                }
-                chunk = new ContentChunkImpl(freshBytes);
-                lengthLeft -= chunkSize;
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            assert chunk != null;
-            consumer.consume(chunk);
-        }
-        consumer.endChunks();
-
-        String computedMd5Sum = toHex(md5.digest(), 32);
-        String computedSha1Sum = toHex(sha1.digest(), 40);
-
-        if(md5sum != null && !md5sum.equals(computedMd5Sum)) {
-            throw new ParseException("MD5 sum is incorrect! Expected: " + md5sum + ", Actual: " + computedMd5Sum);
-        }
-
-        if(sha1sum != null && !sha1sum.equals(computedSha1Sum)) {
-            throw new ParseException("SHA1 sum is incorrect! Expected: " + sha1sum + ", Actual: " + computedSha1Sum);
-        }
-
-        token.next = null; // we've advanced in the stream, we don't know what the next token is.
-    }
-
-    // swiped from http://stackoverflow.com/questions/415953
-    private String toHex(byte[] digest, int length) {
-        BigInteger bitInt = new BigInteger(1, digest);
-        String hashText = bitInt.toString(16);
-
-        while(hashText.length() < length) {
-            hashText = "0" + hashText;
-        }
-
-        return hashText;
-    }
-
-    public static void consume(InputStream inputStream, RepositoryConsumer consumer) throws ParseException {
-        new SvnDumpParser(new SvnDumpCharStream(inputStream)).Start(consumer);
-    }
+  public void setFileContentChunkSize(int size) {
+      this.fileContentChunkSize = size;
   }
+
+  private String readCharacters(Integer numberOfBytes) {
+      if(numberOfBytes == null) {
+          return null;
+      }
+
+      try {
+          byte[] bytes = ((SvnDumpCharStream) token_source.input_stream).readBytes(numberOfBytes);
+          return new String(bytes, StandardCharsets.UTF_8);
+      } catch(IOException ex) {
+          throw new RuntimeException(ex);
+      }
+  }
+
+  private void readChunks(Long length, RepositoryConsumer consumer, String md5sum, String sha1sum, String path) throws ParseException {
+      if(length == null || length == 0) {
+          return;
+      }
+
+      MessageDigest md5;
+      MessageDigest sha1;
+
+      try {
+          md5 = MessageDigest.getInstance("MD5");
+          sha1 = MessageDigest.getInstance("SHA1");
+      } catch(java.security.NoSuchAlgorithmException ex) {
+          throw new RuntimeException(ex);
+      }
+
+      SvnDumpCharStream stream = (SvnDumpCharStream) token_source.input_stream;
+      long lengthLeft = length;
+      while(lengthLeft > 0) {
+          int chunkSize = (int) Math.min((long)fileContentChunkSize, lengthLeft);
+
+          ContentChunk chunk = null;
+          try {
+              byte[] freshBytes = stream.readBytes(chunkSize);
+              if(md5sum != null) {
+                  md5.update(freshBytes);
+              }
+              if(sha1sum != null) {
+                  sha1.update(freshBytes);
+              }
+              chunk = new ContentChunkImpl(freshBytes);
+              lengthLeft -= chunkSize;
+          } catch (IOException ex) {
+              throw new RuntimeException(ex);
+          }
+
+          assert chunk != null;
+          consumer.consume(chunk);
+      }
+      consumer.endChunks();
+
+      String computedMd5Sum = toHex(md5.digest(), 32);
+      String computedSha1Sum = toHex(sha1.digest(), 40);
+
+      if(md5sum != null && !md5sum.equals(computedMd5Sum)) {
+          throw new ParseException("MD5 sum is incorrect! Expected: " + md5sum + ", Actual: " + computedMd5Sum);
+      }
+
+      if(sha1sum != null && !sha1sum.equals(computedSha1Sum)) {
+          throw new ParseException("SHA1 sum is incorrect! Expected: " + sha1sum + ", Actual: " + computedSha1Sum);
+      }
+
+      token.next = null; // we've advanced in the stream, we don't know what the next token is.
+  }
+
+  // swiped from http://stackoverflow.com/questions/415953
+  private String toHex(byte[] digest, int length) {
+      BigInteger bitInt = new BigInteger(1, digest);
+      String hashText = bitInt.toString(16);
+
+      while(hashText.length() < length) {
+          hashText = "0" + hashText;
+      }
+
+      return hashText;
+  }
+
+  public static void consume(InputStream inputStream, RepositoryConsumer consumer) throws ParseException {
+      new SvnDumpParser(new SvnDumpCharStream(inputStream)).Start(consumer);
+  }
+}
+
 PARSER_END(SvnDumpParser)
 
 //  Lexer
