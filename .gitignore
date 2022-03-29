@@ -1,3 +1,4 @@
 svndumpapi.i*
 .idea/
 build/
+.gradle/
