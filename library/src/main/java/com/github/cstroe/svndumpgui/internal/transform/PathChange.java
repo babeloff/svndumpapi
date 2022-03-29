@@ -3,10 +3,6 @@ package com.github.cstroe.svndumpgui.internal.transform;
 import com.github.cstroe.svndumpgui.api.Node;
 import com.github.cstroe.svndumpgui.api.NodeHeader;
 import com.github.cstroe.svndumpgui.api.Property;
-import com.github.cstroe.svndumpgui.api.Revision;
-import com.github.cstroe.svndumpgui.generated.MergeInfoParser;
-import com.github.cstroe.svndumpgui.generated.ParseException;
-import com.github.cstroe.svndumpgui.internal.transform.property.MergeInfoData;
 
 public class PathChange extends AbstractRepositoryMutator {
 

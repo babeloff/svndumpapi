@@ -91,7 +91,7 @@ public class SvnDumpCharStreamTest {
         assertThat(readData(number), is(equalTo("abcde")));
         assertThat(charStream.getStreamPosition(), is(51L));
 
-        assertThat(charStream.buffer.length, is(SvnDumpCharStream.INITAL_BUFFER_LENGTH));
+        assertThat(charStream.buffer.length, is(SvnDumpCharStream.INITIAL_BUFFER_LENGTH));
     }
 
     private void READ() throws IOException {
@@ -173,7 +173,7 @@ public class SvnDumpCharStreamTest {
         assertThat(new String(charStream.readBytes(number)), is(equalTo("abcde")));
         assertThat(charStream.getStreamPosition(), is(51L));
 
-        assertThat(charStream.buffer.length, is(SvnDumpCharStream.INITAL_BUFFER_LENGTH));
+        assertThat(charStream.buffer.length, is(SvnDumpCharStream.INITIAL_BUFFER_LENGTH));
     }
 
     @Test
@@ -252,7 +252,7 @@ public class SvnDumpCharStreamTest {
         assertThat(new String(charStream.readBytes(number)), is(equalTo("abcd")));
         assertThat(charStream.getStreamPosition(), is(18229L));
 
-        assertThat(charStream.buffer.length, is(SvnDumpCharStream.INITAL_BUFFER_LENGTH));
+        assertThat(charStream.buffer.length, is(SvnDumpCharStream.INITIAL_BUFFER_LENGTH));
     }
 
     @Test

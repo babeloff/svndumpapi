@@ -1,7 +1,7 @@
 package com.github.cstroe.svndumpgui.internal.validate;
 
-import com.github.cstroe.svndumpgui.api.RepositoryValidationError;
 import com.github.cstroe.svndumpgui.api.Preamble;
+import com.github.cstroe.svndumpgui.api.RepositoryValidationError;
 import com.github.cstroe.svndumpgui.api.RepositoryValidator;
 import com.github.cstroe.svndumpgui.api.Revision;
 

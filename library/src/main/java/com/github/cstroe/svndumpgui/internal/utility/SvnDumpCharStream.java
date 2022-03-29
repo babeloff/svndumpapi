@@ -23,7 +23,9 @@ package com.github.cstroe.svndumpgui.internal.utility;
 
 import com.github.cstroe.svndumpgui.generated.CharStream;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 /** An efficient implementation of JavaCC's CharStream interface.  <p>Note that
@@ -32,7 +34,7 @@ import java.nio.charset.StandardCharsets;
  * org.apache.lucene.analysis.Token API.
  * */
 public final class SvnDumpCharStream implements CharStream {
-    public static final int INITAL_BUFFER_LENGTH = 2048;
+    public static final int INITIAL_BUFFER_LENGTH = 2048;
     byte[] buffer = null;
 
     int bufferLength = 0;          // end of valid chars
@@ -126,7 +128,7 @@ public final class SvnDumpCharStream implements CharStream {
 
         if (tokenStart == 0) {        // token won't fit in buffer
             if (buffer == null) {        // first time: alloc buffer
-                buffer = new byte[INITAL_BUFFER_LENGTH];
+                buffer = new byte[INITIAL_BUFFER_LENGTH];
             } else if (bufferLength == buffer.length) { // grow buffer
                 byte[] newBuffer = new byte[Math.max(buffer.length*2, Integer.MAX_VALUE - 5)];
                 System.arraycopy(buffer, 0, newBuffer, 0, bufferLength);

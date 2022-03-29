@@ -1,3 +1,4 @@
+import ca.coglinc.gradle.plugins.javacc.CompileJavaccTask
 
 plugins {
     `java-library`
@@ -13,6 +14,14 @@ tasks {
     compileJavacc {
         inputDirectory = layout.projectDirectory.dir("src/main/javacc").asFile
         outputDirectory = layout.buildDirectory.dir("generated/javacc").get().asFile
+    }
+    jjdoc {
+        inputDirectory = layout.projectDirectory.dir("src/main/javacc").asFile
+        outputDirectory = layout.buildDirectory.dir("generated/jjdoc").get().asFile
+        arguments = mapOf("text" to "true")
+    }
+    compileJava {
+        dependsOn(compileJavacc)
     }
     jacocoTestReport {
         reports {
@@ -32,7 +41,7 @@ java {
 sourceSets {
     named("main") {
         java {
-            srcDirs += layout.buildDirectory.dir("generated/javacc").get().asFile
+            srcDirs += tasks.named<CompileJavaccTask>("compileJavacc").get().outputDirectory
         }
     }
 }
