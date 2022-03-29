@@ -101,6 +101,11 @@ public class NodeImpl implements Node {
             }
         }
 
+        String deltaInfo = "";
+        if(headers.containsKey(NodeHeader.TEXT_DELTA)) {
+            deltaInfo = " Delta: is " + headers.get(NodeHeader.TEXT_DELTA);
+        }
+
         String sizeInfo = "";
         if(headers.containsKey(NodeHeader.TEXT_CONTENT_LENGTH)) {
             sizeInfo = " Size: " + headers.get(NodeHeader.TEXT_CONTENT_LENGTH) + " bytes";
@@ -109,10 +114,12 @@ public class NodeImpl implements Node {
         if(headers.containsKey(NodeHeader.KIND)) {
             return  headers.get(NodeHeader.ACTION) + " " +
                     headers.get(NodeHeader.KIND) + " " +
-                    headers.get(NodeHeader.PATH) + copyInfo + sizeInfo;
+                    headers.get(NodeHeader.PATH) +
+                    deltaInfo + copyInfo + sizeInfo;
         } else {
             return  headers.get(NodeHeader.ACTION) + " " +
-                    headers.get(NodeHeader.PATH) + copyInfo + sizeInfo;
+                    headers.get(NodeHeader.PATH) +
+                    deltaInfo + copyInfo + sizeInfo;
         }
     }
 }

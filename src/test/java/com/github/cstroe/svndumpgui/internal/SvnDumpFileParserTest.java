@@ -488,7 +488,9 @@ public class SvnDumpFileParserTest {
             n1_1.getHeaders().put(NodeHeader.ACTION, "add");
             n1_1.getHeaders().put(NodeHeader.KIND, "file");
             n1_1.getHeaders().put(NodeHeader.PATH, "file1");
+            n1_1.getHeaders().put(NodeHeader.TEXT_DELTA, "true");
             n1_1.getHeaders().put(NodeHeader.TEXT_CONTENT_LENGTH, "256");
+            n1_1.getHeaders().put(NodeHeader.PROP_DELTA, "true");
             n1_1.getHeaders().put(NodeHeader.PROP_CONTENT_LENGTH, "56");
             n1_1.getProperties().put(Property.DATE, "2015-08-27T13:56:55.851461Z");
             byte[] content = new byte[256];
@@ -563,7 +565,9 @@ public class SvnDumpFileParserTest {
             n1_1.getHeaders().put(NodeHeader.ACTION, "add");
             n1_1.getHeaders().put(NodeHeader.KIND, "file");
             n1_1.getHeaders().put(NodeHeader.PATH, "file1");
+            n1_1.getHeaders().put(NodeHeader.TEXT_DELTA, "true");
             n1_1.getHeaders().put(NodeHeader.TEXT_CONTENT_LENGTH, "256");
+            n1_1.getHeaders().put(NodeHeader.PROP_DELTA, "true");
             n1_1.getHeaders().put(NodeHeader.PROP_CONTENT_LENGTH, "56");
             n1_1.getProperties().put(Property.DATE, "2015-08-27T13:56:55.851461Z");
             byte[] content = new byte[256];
@@ -657,6 +661,7 @@ public class SvnDumpFileParserTest {
             binaryFile1.getHeaders().put(NodeHeader.ACTION, "add");
             binaryFile1.getHeaders().put(NodeHeader.KIND, "file");
             binaryFile1.getHeaders().put(NodeHeader.PATH, "binaryFile1");
+            binaryFile1.getHeaders().put(NodeHeader.TEXT_DELTA, "true");
             binaryFile1.getHeaders().put(NodeHeader.TEXT_CONTENT_LENGTH, String.valueOf(content.length));
             binaryFile1.getHeaders().put(NodeHeader.MD5, TestUtil.md5ConvertDigest(md5.digest()));
             binaryFile1.addFileContentChunk(new ContentChunkImpl(content));

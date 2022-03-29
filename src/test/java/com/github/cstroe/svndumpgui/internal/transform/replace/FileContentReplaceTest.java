@@ -49,6 +49,7 @@ public class FileContentReplaceTest {
         assertThat(r1.getNodes().size(), is(1));
         Node node = r1.getNodes().get(0);
         assertThat(new String(node.getContent().get(0).getContent()), is(equalTo(newFileContent)));
+        assertThat(node.get(NodeHeader.TEXT_DELTA), is(equalTo("true")));
         assertThat(node.get(NodeHeader.TEXT_CONTENT_LENGTH), is(equalTo("12")));
         assertThat(node.get(NodeHeader.CONTENT_LENGTH), is(equalTo("22")));
         assertThat(node.get(NodeHeader.MD5), is(equalTo(new Md5().hash(newFileContent.getBytes()))));

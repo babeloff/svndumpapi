@@ -74,6 +74,14 @@ public class SvnDumpWriter extends AbstractRepositoryWriter {
         ps().println();
 
         // properties
+        if(node.getHeaders().containsKey(NodeHeader.PROP_DELTA)) {
+            writeProperties(ps(), node.getProperties());
+            // write an extra newline when there is no content and properties were written.
+            if(node.get(NodeHeader.TEXT_DELTA) == null || Boolean.parseBoolean(node.get(NodeHeader.TEXT_DELTA)) == true) {
+                ps().println();
+            }
+        }
+
         if(node.getHeaders().containsKey(NodeHeader.PROP_CONTENT_LENGTH)) {
             writeProperties(ps(), node.getProperties());
 

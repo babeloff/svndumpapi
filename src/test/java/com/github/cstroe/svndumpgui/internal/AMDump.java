@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.util.HashMap;
 
 public class AMDump {
@@ -55,6 +56,7 @@ public class AMDump {
         trunkAgreementMaker.getHeaders().put(NodeHeader.ACTION, "add");
         trunkAgreementMaker.getHeaders().put(NodeHeader.KIND, "dir");
         trunkAgreementMaker.getHeaders().put(NodeHeader.PATH, "trunk/AgreementMaker");
+        trunkAgreementMaker.getHeaders().put(NodeHeader.PROP_DELTA, "true");
         trunkAgreementMaker.getHeaders().put(NodeHeader.PROP_CONTENT_LENGTH, "10");
         trunkAgreementMaker.getHeaders().put(NodeHeader.CONTENT_LENGTH, "10");
         trunkAgreementMaker.setProperties(new HashMap<>());

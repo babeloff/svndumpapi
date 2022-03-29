@@ -219,6 +219,12 @@ public class FileContentReplace extends AbstractRepositoryMutator {
             node.getHeaders().put(NodeHeader.TEXT_CONTENT_LENGTH, Integer.toString(generatedChunk.getContent().length));
         }
 
+        String propDeltaRaw = node.get(NodeHeader.PROP_DELTA);
+        boolean propDelta = false;
+        if(propDeltaRaw != null) {
+            propDelta = Boolean.parseBoolean(propDeltaRaw);
+        }
+
         String propContentLengthRaw = node.get(NodeHeader.PROP_CONTENT_LENGTH);
         long propContentLength = 0;
         if(propContentLengthRaw != null) {

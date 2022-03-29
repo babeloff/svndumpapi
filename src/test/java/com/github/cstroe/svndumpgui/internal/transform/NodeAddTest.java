@@ -78,6 +78,7 @@ public class NodeAddTest {
             newFileNode.getHeaders().put(NodeHeader.ACTION, "add");
             newFileNode.getHeaders().put(NodeHeader.KIND, "file");
             newFileNode.getHeaders().put(NodeHeader.PATH, "FILE.txt");
+            newFileNode.getHeaders().put(NodeHeader.TEXT_DELTA, "true");
             newFileNode.getHeaders().put(NodeHeader.TEXT_CONTENT_LENGTH, Integer.toString(fileContent.length));
             newFileNode.getHeaders().put(NodeHeader.CONTENT_LENGTH, Integer.toString(fileContent.length));
             newFileNode.getHeaders().put(NodeHeader.MD5, TestUtil.md5sum(fileContent));
@@ -163,6 +164,7 @@ public class NodeAddTest {
             newFileNode.getHeaders().put(NodeHeader.ACTION, "add");
             newFileNode.getHeaders().put(NodeHeader.KIND, "file");
             newFileNode.getHeaders().put(NodeHeader.PATH, "FILE.txt");
+            newFileNode.getHeaders().put(NodeHeader.TEXT_DELTA, "true");
             newFileNode.getHeaders().put(NodeHeader.TEXT_CONTENT_LENGTH, Integer.toString(fileContent.length));
             newFileNode.getHeaders().put(NodeHeader.CONTENT_LENGTH, Integer.toString(fileContent.length));
             newFileNode.getHeaders().put(NodeHeader.MD5, TestUtil.md5sum(fileContent));

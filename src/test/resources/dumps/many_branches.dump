@@ -3,6 +3,7 @@ SVN-fs-dump-format-version: 2
 UUID: fd1966bb-b5d9-4a5e-876e-38606efe9112
 
 Revision-number: 0
+Prop-delta: true
 Prop-content-length: 56
 Content-length: 56
 
@@ -13,6 +14,7 @@ V 27
 PROPS-END
 
 Revision-number: 1
+Prop-delta: true
 Prop-content-length: 116
 Content-length: 116
 
@@ -33,6 +35,7 @@ PROPS-END
 Node-path: branches
 Node-kind: dir
 Node-action: add
+Prop-delta: true
 Prop-content-length: 10
 Content-length: 10
 
@@ -42,6 +45,7 @@ PROPS-END
 Node-path: trunk
 Node-kind: dir
 Node-action: add
+Prop-delta: true
 Prop-content-length: 10
 Content-length: 10
 
@@ -51,7 +55,9 @@ PROPS-END
 Node-path: trunk/file.txt
 Node-kind: file
 Node-action: add
+Prop-delta: true
 Prop-content-length: 10
+Text-delta: true
 Text-content-length: 20
 Text-content-md5: 4221d002ceb5d3c9e9137e495ceaa647
 Text-content-sha1: 804d716fc5844f1cc5516c8f0be7a480517fdea2
@@ -62,6 +68,7 @@ this is a test file
 
 
 Revision-number: 2
+Prop-delta: true
 Prop-content-length: 109
 Content-length: 109
 
@@ -87,6 +94,7 @@ Node-copyfrom-path: trunk
 
 
 Revision-number: 3
+Prop-delta: true
 Prop-content-length: 132
 Content-length: 132
 
@@ -107,6 +115,7 @@ PROPS-END
 Node-path: trunk/file.txt
 Node-kind: file
 Node-action: change
+Text-delta: true
 Text-content-length: 33
 Text-content-md5: 79f2d2c6810f0f7953c8972e6b06e3bd
 Text-content-sha1: 952b76fbdb467e6a9b8bbef76dfc22f9dd14480b
@@ -117,6 +126,7 @@ another line
 
 
 Revision-number: 4
+Prop-delta: true
 Prop-content-length: 127
 Content-length: 127
 
@@ -137,6 +147,7 @@ PROPS-END
 Node-path: branches/branch1
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 45
 Content-length: 45
 
@@ -150,6 +161,7 @@ PROPS-END
 Node-path: branches/branch1/file.txt
 Node-kind: file
 Node-action: change
+Text-delta: true
 Text-content-length: 33
 Text-content-md5: 79f2d2c6810f0f7953c8972e6b06e3bd
 Text-content-sha1: 952b76fbdb467e6a9b8bbef76dfc22f9dd14480b
@@ -160,6 +172,7 @@ another line
 
 
 Revision-number: 5
+Prop-delta: true
 Prop-content-length: 109
 Content-length: 109
 
@@ -185,6 +198,7 @@ Node-copyfrom-path: trunk
 
 
 Revision-number: 6
+Prop-delta: true
 Prop-content-length: 118
 Content-length: 118
 
@@ -206,6 +220,7 @@ Node-path: branches/branch1/file.txt
 Node-kind: file
 Node-action: change
 Text-content-length: 44
+Text-delta: true
 Text-content-md5: 5230b668f445f074595d3ce715035a0b
 Text-content-sha1: 38688d658b84091fefc657d6b473cb7797fb6325
 Content-length: 44
@@ -216,6 +231,7 @@ third line
 
 
 Revision-number: 7
+Prop-delta: true
 Prop-content-length: 129
 Content-length: 129
 
@@ -236,6 +252,7 @@ PROPS-END
 Node-path: branches/branch2
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 56
 Content-length: 56
 
@@ -249,6 +266,8 @@ PROPS-END
 Node-path: branches/branch2/file.txt
 Node-kind: file
 Node-action: change
+Prop-delta: false
+Text-delta: true
 Text-content-length: 44
 Text-content-md5: 5230b668f445f074595d3ce715035a0b
 Text-content-sha1: 38688d658b84091fefc657d6b473cb7797fb6325
@@ -260,6 +279,7 @@ third line
 
 
 Revision-number: 8
+Prop-delta: true
 Prop-content-length: 119
 Content-length: 119
 
@@ -281,6 +301,7 @@ Node-path: branches/branch1/file.txt
 Node-kind: file
 Node-action: change
 Text-content-length: 56
+Text-delta: true
 Text-content-md5: ff4f226213ca6c4bfc2aba85af568f77
 Text-content-sha1: cb847677141832f1062744e02db2b85efe930f85
 Content-length: 56
@@ -292,6 +313,7 @@ fourth line
 
 
 Revision-number: 9
+Prop-delta: true
 Prop-content-length: 129
 Content-length: 129
 
@@ -312,6 +334,7 @@ PROPS-END
 Node-path: branches/branch2
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 56
 Content-length: 56
 
@@ -325,6 +348,8 @@ PROPS-END
 Node-path: branches/branch2/file.txt
 Node-kind: file
 Node-action: change
+Prop-delta: false
+Text-delta: true
 Text-content-length: 56
 Text-content-md5: ff4f226213ca6c4bfc2aba85af568f77
 Text-content-sha1: cb847677141832f1062744e02db2b85efe930f85
@@ -337,6 +362,7 @@ fourth line
 
 
 Revision-number: 10
+Prop-delta: true
 Prop-content-length: 124
 Content-length: 124
 
@@ -357,6 +383,7 @@ PROPS-END
 Node-path: branches/branch1
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 45
 Content-length: 45
 
@@ -368,6 +395,7 @@ PROPS-END
 
 
 Revision-number: 11
+Prop-delta: true
 Prop-content-length: 131
 Content-length: 131
 
@@ -388,6 +416,7 @@ PROPS-END
 Node-path: trunk
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 57
 Content-length: 57
 
@@ -402,6 +431,7 @@ Node-path: trunk/file.txt
 Node-kind: file
 Node-action: change
 Text-content-length: 56
+Text-delta: true
 Text-content-md5: ff4f226213ca6c4bfc2aba85af568f77
 Text-content-sha1: cb847677141832f1062744e02db2b85efe930f85
 Content-length: 56
@@ -413,6 +443,7 @@ fourth line
 
 
 Revision-number: 12
+Prop-delta: true
 Prop-content-length: 118
 Content-length: 118
 
@@ -435,6 +466,7 @@ Node-action: delete
 
 
 Revision-number: 13
+Prop-delta: true
 Prop-content-length: 121
 Content-length: 121
 
@@ -455,7 +487,9 @@ PROPS-END
 Node-path: trunk/other.txt
 Node-kind: file
 Node-action: add
+Prop-delta: true
 Prop-content-length: 10
+Text-delta: true
 Text-content-length: 11
 Text-content-md5: aff8766b86bae76c1fc4a203ab1b1ec6
 Text-content-sha1: a77b0882841c633011478420bf0eb9d10f39fd1b
@@ -466,6 +500,7 @@ a new file
 
 
 Revision-number: 14
+Prop-delta: true
 Prop-content-length: 127
 Content-length: 127
 
@@ -486,6 +521,7 @@ PROPS-END
 Node-path: branches/branch2
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 69
 Content-length: 69
 
@@ -507,6 +543,7 @@ Text-copy-source-sha1: a77b0882841c633011478420bf0eb9d10f39fd1b
 
 
 Revision-number: 15
+Prop-delta: true
 Prop-content-length: 126
 Content-length: 126
 
@@ -527,6 +564,8 @@ PROPS-END
 Node-path: branches/branch2/file.txt
 Node-kind: file
 Node-action: change
+Prop-delta: false
+Text-delta: true
 Text-content-length: 70
 Text-content-md5: 15bc38cc43b50d76b45fefd846cf50d0
 Text-content-sha1: e65abbe8c0c1f846fa2cf82efdcd44c3da67ead4
@@ -540,6 +579,7 @@ final touches
 
 
 Revision-number: 16
+Prop-delta: true
 Prop-content-length: 133
 Content-length: 133
 
@@ -560,6 +600,7 @@ PROPS-END
 Node-path: branches/branch2
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 69
 Content-length: 69
 
@@ -572,6 +613,7 @@ PROPS-END
 
 
 Revision-number: 17
+Prop-delta: true
 Prop-content-length: 132
 Content-length: 132
 
@@ -592,6 +634,7 @@ PROPS-END
 Node-path: trunk
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 80
 Content-length: 80
 
@@ -606,6 +649,7 @@ PROPS-END
 Node-path: trunk/file.txt
 Node-kind: file
 Node-action: change
+Text-delta: true
 Text-content-length: 70
 Text-content-md5: 15bc38cc43b50d76b45fefd846cf50d0
 Text-content-sha1: e65abbe8c0c1f846fa2cf82efdcd44c3da67ead4
@@ -619,6 +663,7 @@ final touches
 
 
 Revision-number: 18
+Prop-delta: true
 Prop-content-length: 118
 Content-length: 118
 
@@ -641,6 +686,7 @@ Node-action: delete
 
 
 Revision-number: 19
+Prop-delta: true
 Prop-content-length: 111
 Content-length: 111
 
@@ -662,6 +708,7 @@ Node-path: trunk/file.txt
 Node-kind: file
 Node-action: change
 Text-content-length: 92
+Text-delta: true
 Text-content-md5: 5e9ec3b69ee4878a8ff61c047c87046d
 Text-content-sha1: d03fa64d1de1d1a87e04b156f76a48bba906caf6
 Content-length: 92
