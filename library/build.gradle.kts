@@ -4,6 +4,7 @@ plugins {
     `java-library`
     id("ca.coglinc.javacc") version "2.4.0"
     `jacoco`
+    `svndump-sample-dump`
 }
 
 repositories {

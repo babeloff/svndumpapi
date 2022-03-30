@@ -47,7 +47,7 @@ public class PathCollisionValidatorTest {
     @Test
     public void detect_invalid_dump() throws ParseException {
         final RepositoryValidator validator = new PathCollisionValidator();
-        SvnDumpFileParserTest.consume("dumps/invalid/svn_add_directory_twice.invalid", validator);
+        SvnDumpFileParserTest.consume("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/invalid/svn_add_directory_twice.invalid", validator);
 
         assertFalse("The validator should detect the invalid condition of adding the same directory twice.", validator.isValid());
 
@@ -114,7 +114,7 @@ public class PathCollisionValidatorTest {
     @Test
     public void detect_invalid_copy() throws ParseException {
         final RepositoryValidator validator = new PathCollisionValidator();
-        SvnDumpFileParserTest.consume("dumps/invalid/undelete.invalid", validator);
+        SvnDumpFileParserTest.consume("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/invalid/undelete.invalid", validator);
 
         assertFalse("The validator should detect the invalid condition of copying files from nonexisting location",
             validator.isValid());

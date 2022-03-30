@@ -87,7 +87,7 @@ public class SvnDumpFileParserTest {
     @Test
     public void simple_property_is_parsed() throws ParseException {
         final InputStream s = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("dumps/partial/simple_property.fragment");
+                .getResourceAsStream("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/partial/simple_property.fragment");
 
         SvnDumpParser parser = new SvnDumpParser(new SvnDumpCharStream(s));
 
@@ -102,7 +102,7 @@ public class SvnDumpFileParserTest {
     @Test
     public void empty_revision_is_parsed() throws ParseException {
         final InputStream s = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("dumps/partial/empty_revision.fragment");
+                .getResourceAsStream("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/partial/empty_revision.fragment");
 
         SvnDumpParser parser = new SvnDumpParser(new SvnDumpCharStream(s));
         Revision revision = parser.Revision();
@@ -735,6 +735,6 @@ public class SvnDumpFileParserTest {
             oneOf(mockConsumer).endRevision(with(any(Revision.class))); inSequence(consumerSequence);
         }});
 
-        SvnDumpParser.consume(TestUtil.openResource("dumps/invalid/missing_nl.invalid"), mockConsumer);
+        SvnDumpParser.consume(TestUtil.openResource("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/invalid/missing_nl.invalid"), mockConsumer);
     }
 }

@@ -1,6 +1,6 @@
-SVN-fs-dump-format-version: 2
+SVN-fs-dump-format-version: 3
 
-UUID: 4c8e1472-18c5-43c5-b55c-a2931d0c76ca
+UUID: a36b7de2-60c4-473a-81e3-63262d92b7a7
 
 Revision-number: 0
 Prop-content-length: 56
@@ -9,7 +9,7 @@ Content-length: 56
 K 8
 svn:date
 V 27
-2015-11-23T08:00:50.080598Z
+2022-03-30T17:36:26.129431Z
 PROPS-END
 
 Revision-number: 1
@@ -19,11 +19,11 @@ Content-length: 130
 K 10
 svn:author
 V 6
-cosmin
+phread
 K 8
 svn:date
 V 27
-2015-11-23T08:00:50.220138Z
+2022-03-30T17:36:26.756840Z
 K 7
 svn:log
 V 29
@@ -33,6 +33,7 @@ PROPS-END
 Node-path: 
 Node-kind: dir
 Node-action: change
+Prop-delta: true
 Prop-content-length: 40
 Content-length: 40
 
