@@ -24,6 +24,9 @@ tasks {
     compileJava {
         dependsOn(compileJavacc)
     }
+    compileTestJava {
+        dependsOn(compileJavacc)
+    }
     jacocoTestReport {
         reports {
             xml.required.set(false)

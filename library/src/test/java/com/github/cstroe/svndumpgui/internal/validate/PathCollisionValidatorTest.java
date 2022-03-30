@@ -23,10 +23,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 public class PathCollisionValidatorTest {
 
@@ -49,10 +48,10 @@ public class PathCollisionValidatorTest {
         final RepositoryValidator validator = new PathCollisionValidator();
         SvnDumpFileParserTest.consume("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/invalid/svn_add_directory_twice.invalid", validator);
 
-        assertFalse("The validator should detect the invalid condition of adding the same directory twice.", validator.isValid());
+        assertThat("The validator should detect the invalid condition of adding the same directory twice.", validator.isValid());
 
         RepositoryValidationError error = validator.getError();
-        assertNotNull(error.getMessage());
+        assertThat(error.getMessage(), is(notNullValue()));
         assertThat(error.getRevision(), is(2));
         assertThat(error.getNode().get(NodeHeader.PATH), is(equalTo("testdir")));
     }
@@ -116,11 +115,11 @@ public class PathCollisionValidatorTest {
         final RepositoryValidator validator = new PathCollisionValidator();
         SvnDumpFileParserTest.consume("buildSrc/src/main/kotlin/com/github/cstroe/svndumps/invalid/undelete.invalid", validator);
 
-        assertFalse("The validator should detect the invalid condition of copying files from nonexisting location",
+        assertThat("The validator should detect the invalid condition of copying files from nonexisting location",
             validator.isValid());
 
         RepositoryValidationError error = validator.getError();
-        assertNotNull(error.getMessage());
+        assertThat(error.getMessage(), is(notNullValue()));
         assertThat(error.getRevision(), is(3));
         assertThat(error.getNode().get(NodeHeader.PATH), is(equalTo("file2.txt")));
     }
@@ -164,7 +163,7 @@ public class PathCollisionValidatorTest {
 
         RepositoryValidator pcValidator = new PathCollisionValidator();
         SvnDumpParserDoppelganger.consumeWithoutChaining(dump, pcValidator);
-        assertFalse(pcValidator.isValid());
+        assertThat(pcValidator.isValid(), is(false));
     }
 
     private Node createErrorTriggeringNode(Revision r) {

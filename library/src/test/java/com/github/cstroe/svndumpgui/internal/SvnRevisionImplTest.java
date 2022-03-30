@@ -14,8 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SvnRevisionImplTest {
 
@@ -24,12 +25,12 @@ public class SvnRevisionImplTest {
         {
             RevisionImpl svnRevision = new RevisionImpl(1);
             assertThat(svnRevision.getNumber(), is(1));
-            assertNull(svnRevision.get(Property.DATE));
+            assertThat(svnRevision.get(Property.DATE), is(nullValue()));
         }{
             RevisionImpl svnRevision = new RevisionImpl(1);
             svnRevision.setNumber(2);
             assertThat(svnRevision.getNumber(), is(2));
-            assertNull(svnRevision.get(Property.DATE));
+            assertThat(svnRevision.get(Property.DATE), is(nullValue()));
         }
     }
 

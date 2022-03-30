@@ -20,7 +20,6 @@ import java.util.Map;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
 
 public class PropertyChangeTest {
 
@@ -53,7 +52,7 @@ public class PropertyChangeTest {
         assertThat(currentEntry.getKey(), is(equalTo("prop3")));
         assertThat(currentEntry.getValue(), is(equalTo("val3")));
 
-        assertFalse(propIter.hasNext());
+        assertThat(propIter.hasNext(), is(false));
     }
 
     @Test
@@ -81,7 +80,7 @@ public class PropertyChangeTest {
         assertThat(currentEntry.getKey(), is(equalTo("prop3")));
         assertThat(currentEntry.getValue(), is(equalTo("val3")));
 
-        assertFalse(propIter.hasNext());
+        assertThat(propIter.hasNext(), is(false));
     }
 
     @Test
@@ -134,7 +133,7 @@ public class PropertyChangeTest {
         assertThat(currentEntry.getKey(), is(equalTo("prop3")));
         assertThat(currentEntry.getValue(), is(equalTo("val3")));
 
-        assertFalse(propIter.hasNext());
+        assertThat(propIter.hasNext(), is(false));
     }
 
     @Test
@@ -162,6 +161,6 @@ public class PropertyChangeTest {
         assertThat(currentEntry.getKey(), is(equalTo("prop3")));
         assertThat(currentEntry.getValue(), is(equalTo("val3")));
 
-        assertFalse(propIter.hasNext());
+        assertThat(propIter.hasNext(), is(false));
     }
 }

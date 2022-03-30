@@ -20,9 +20,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class TreeOfKnowledgeImplTest {
     @Test
@@ -31,7 +33,7 @@ public class TreeOfKnowledgeImplTest {
         SvnDumpParser.consume(TestUtil.openResource("dumps/empty.dump"), tok);
 
         CLTreeNode<Triplet<MultiSpan, String, Node>> root = tok.getRoot();
-        assertNotNull(root);
+        assertThat(root, is(notNullValue()));
 
         List<CLTreeNode<Triplet<MultiSpan, String, Node>>> children = root.getChildren(n -> true);
         assertThat(children.size(), is(0));
@@ -43,13 +45,13 @@ public class TreeOfKnowledgeImplTest {
         SvnDumpParser.consume(TestUtil.openResource("dumps/add_file.dump"), tok);
 
         CLTreeNode<Triplet<MultiSpan, String, Node>> root = tok.getRoot();
-        assertNotNull(root);
+        assertThat(root, is(notNullValue()));
 
         List<CLTreeNode<Triplet<MultiSpan, String, Node>>> children = root.getChildren(n -> true);
         assertThat(children.size(), is(1));
 
         Node n = tok.tellMeAbout(1, "README.txt");
-        assertNotNull(n);
+        assertThat(n, is(notNullValue()));
         assertThat(n.get(NodeHeader.MD5), is(equalTo("4221d002ceb5d3c9e9137e495ceaa647")));
         assertThat(n.get(NodeHeader.SHA1), is(equalTo("804d716fc5844f1cc5516c8f0be7a480517fdea2")));
     }
@@ -87,16 +89,16 @@ public class TreeOfKnowledgeImplTest {
     public void directory_deletes() throws ParseException {
         TreeOfKnowledgeImpl tok = new TreeOfKnowledgeImpl();
         SvnDumpParser.consume(TestUtil.openResource("dumps/inner_dir.dump"), tok);
-        assertNull(tok.tellMeAbout(2, "test"));
+        assertThat(tok.tellMeAbout(2, "test"), is(nullValue()));
     }
 
     @Test
     public void tracks_across_copies() throws ParseException {
         TreeOfKnowledgeImpl tok = new TreeOfKnowledgeImpl();
         SvnDumpParser.consume(TestUtil.openResource("dumps/inner_dir.dump"), tok);
-        assertNotNull(tok.tellMeAbout(2, "test-renamed"));
-        assertNotNull(tok.tellMeAbout(2, "test-renamed/innerdir"));
-        assertNotNull(tok.tellMeAbout(2, "test-renamed/innerdir/file3.txt"));
+        assertThat(tok.tellMeAbout(2, "test-renamed"), is(notNullValue()));
+        assertThat(tok.tellMeAbout(2, "test-renamed/innerdir"), is(notNullValue()));
+        assertThat(tok.tellMeAbout(2, "test-renamed/innerdir/file3.txt"), is(notNullValue()));
 
         Node file3 = tok.tellMeAbout(2, "test-renamed/innerdir/file3.txt");
         assertThat(file3.get(NodeHeader.MD5), is(equalTo("d41d8cd98f00b204e9800998ecf8427e")));
@@ -107,7 +109,7 @@ public class TreeOfKnowledgeImplTest {
     public void tracks_deletes_across_copies() throws ParseException {
         TreeOfKnowledgeImpl tok = new TreeOfKnowledgeImpl();
         SvnDumpParser.consume(TestUtil.openResource("dumps/inner_dir.dump"), tok);
-        assertNull(tok.tellMeAbout(3, "test-renamed/innerdir/file3.txt"));
+        assertThat(tok.tellMeAbout(3, "test-renamed/innerdir/file3.txt"), is(nullValue()));
     }
 
     @Test
@@ -185,7 +187,7 @@ public class TreeOfKnowledgeImplTest {
 
         for(Pair<Integer, String> pair : nodes) {
             Node node = tok.tellMeAbout(pair.getValue0(), pair.getValue1());
-            assertNotNull(node);
+            assertThat(node, is(notNullValue()));
             assertThat(node.getRevision().get().getNumber(), is(pair.getValue0()));
             assertThat(node.get(NodeHeader.PATH), is(equalTo((pair.getValue1()))));
         }

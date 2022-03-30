@@ -63,4 +63,5 @@ public class MultiSpan implements Cloneable {
     public String toString() {
         return String.join(",", spans.parallelStream().map(Object::toString).collect(Collectors.toList()));
     }
+
 }

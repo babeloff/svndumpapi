@@ -8,7 +8,7 @@ import java.io.OutputStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SimplePrintStreamTest {
     @Test(expected = IllegalArgumentException.class)

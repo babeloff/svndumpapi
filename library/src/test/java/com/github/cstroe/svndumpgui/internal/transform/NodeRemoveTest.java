@@ -18,10 +18,10 @@ import org.jmock.Sequence;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertNull;
 
 public class NodeRemoveTest {
 
@@ -35,7 +35,7 @@ public class NodeRemoveTest {
         assertThat(dump.getRevisions().get(2).getNodes().size(), is(3));
         Node node = dump.getRevisions().get(2).getNodes().get(1);
         assertThat(node.get(NodeHeader.ACTION), is(equalTo("delete")));
-        assertNull(node.get(NodeHeader.KIND));
+        assertThat(node.get(NodeHeader.KIND), is(nullValue()));
         assertThat(node.get(NodeHeader.PATH), is(equalTo("README2.txt")));
 
         RepositoryMutator nodeRemove = new NodeRemove(2, "delete", "README2.txt");

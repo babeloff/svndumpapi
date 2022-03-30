@@ -2,9 +2,9 @@ package com.github.cstroe.svndumpgui.internal.utility.range;
 
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.*;
 
 public class SpanImplTest {
 
@@ -15,9 +15,9 @@ public class SpanImplTest {
     @Test
     public void simplest_range() {
         Span span = span(1,1);
-        assertFalse(span.contains(0));
-        assertTrue(span.contains(1));
-        assertFalse(span.contains(2));
+        assertThat(span.contains(0), is(false));
+        assertThat(span.contains(1), is(true));
+        assertThat(span.contains(2), is(false));
     }
 
     @Test
@@ -25,40 +25,40 @@ public class SpanImplTest {
         Span span = span(0, 1);
         assertThat(span.low(), is(0));
         assertThat(span.high(), is(1));
-        assertTrue(span.contains(0));
-        assertTrue(span.contains(1));
-        assertFalse(span.contains(-1));
-        assertFalse(span.contains(2));
+        assertThat(span.contains(0), is(true));
+        assertThat(span.contains(1), is(true));
+        assertThat(span.contains(-1), is(false));
+        assertThat(span.contains(2), is(false));
     }
 
     @Test
     public void negative_infinity() {
         Span span = span(Span.NEGATIVE_INFINITY, 10);
-        assertTrue(span.contains(9));
-        assertTrue(span.contains(10));
-        assertFalse(span.contains(11));
-        assertTrue(span.contains(-1234565));
-        assertFalse(span.contains(1234));
+        assertThat(span.contains(9), is(true));
+        assertThat(span.contains(10), is(true));
+        assertThat(span.contains(11), is(false));
+        assertThat(span.contains(-1234565), is(true));
+        assertThat(span.contains(1234), is(false));
     }
 
     @Test
     public void positive_infinity() {
         Span span = span(2, Span.POSITIVE_INFINITY);
-        assertFalse(span.contains(1));
-        assertTrue(span.contains(2));
-        assertTrue(span.contains(3));
-        assertFalse(span.contains(-1234565));
-        assertTrue(span.contains(1234));
+        assertThat(span.contains(1), is(false));
+        assertThat(span.contains(2), is(true));
+        assertThat(span.contains(3), is(true));
+        assertThat(span.contains(-1234565), is(false));
+        assertThat(span.contains(1234), is(true));
     }
 
     @Test
     public void all_numbers() {
         Span span = span(Span.NEGATIVE_INFINITY, Span.POSITIVE_INFINITY);
-        assertTrue(span.contains(0));
-        assertTrue(span.contains(1));
-        assertTrue(span.contains(1000000));
-        assertTrue(span.contains(-1));
-        assertTrue(span.contains(-999999));
+        assertThat(span.contains(0), is(true));
+        assertThat(span.contains(1), is(true));
+        assertThat(span.contains(1000000), is(true));
+        assertThat(span.contains(-1), is(true));
+        assertThat(span.contains(-999999), is(true));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -95,42 +95,42 @@ public class SpanImplTest {
     public void overlapping() {
         {
             Span s1 = span(0,1);
-            assertTrue(s1.overlaps(s1));
+            assertThat(s1.overlaps(s1), is(true));
         }{
             Span s1 = span(0,1);
             Span s2 = span(0,1);
-            assertTrue(s1.overlaps(s2));
-            assertTrue(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(true));
+            assertThat(s2.overlaps(s1), is(true));
         }{
             Span s1 = span(0,1);
             Span s2 = span(1,2);
-            assertTrue(s1.overlaps(s2));
-            assertTrue(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(true));
+            assertThat(s2.overlaps(s1), is(true));
         }{
             Span s1 = span(0,1);
             Span s2 = span(2,3);
-            assertFalse(s1.overlaps(s2));
-            assertFalse(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(false));
+            assertThat(s2.overlaps(s1), is(false));
         }{
             Span s1 = span(0,Span.POSITIVE_INFINITY);
             Span s2 = span(1,2);
-            assertTrue(s1.overlaps(s2));
-            assertTrue(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(true));
+            assertThat(s2.overlaps(s1), is(true));
         }{
             Span s1 = span(0,Span.POSITIVE_INFINITY);
             Span s2 = span(Span.NEGATIVE_INFINITY,-1);
-            assertFalse(s1.overlaps(s2));
-            assertFalse(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(false));
+            assertThat(s2.overlaps(s1), is(false));
         }{
             Span s1 = span(Span.NEGATIVE_INFINITY,Span.POSITIVE_INFINITY);
             Span s2 = span(1,2);
-            assertTrue(s1.overlaps(s2));
-            assertTrue(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(true));
+            assertThat(s2.overlaps(s1), is(true));
         }{
             Span s1 = span(Span.NEGATIVE_INFINITY,Span.POSITIVE_INFINITY);
             Span s2 = span(Span.NEGATIVE_INFINITY,Span.POSITIVE_INFINITY);
-            assertTrue(s1.overlaps(s2));
-            assertTrue(s2.overlaps(s1));
+            assertThat(s1.overlaps(s2), is(true));
+            assertThat(s2.overlaps(s1), is(true));
         }
     }
 
@@ -138,7 +138,7 @@ public class SpanImplTest {
     public void cutoff() {
         Span s1 = span(3, 20);
         s1.cutoff(15);
-        assertEquals(15, s1.high());
+        assertThat(15, equalTo(s1.high()));
     }
 
     @Test(expected = IllegalArgumentException.class)

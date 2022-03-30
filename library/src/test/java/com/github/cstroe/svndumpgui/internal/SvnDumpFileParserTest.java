@@ -41,8 +41,11 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 public class SvnDumpFileParserTest {
 
@@ -95,7 +98,7 @@ public class SvnDumpFileParserTest {
         Map properties = parser.Property();
         revision.setProperties(properties);
 
-        assertNotNull(revision.get(Property.DATE));
+        assertThat(revision.get(Property.DATE), is(notNullValue()));
         assertThat(revision.get(Property.DATE), is(equalTo("2015-08-07T13:52:20.465543Z")));
     }
 
@@ -107,7 +110,7 @@ public class SvnDumpFileParserTest {
         SvnDumpParser parser = new SvnDumpParser(new SvnDumpCharStream(s));
         Revision revision = parser.Revision();
 
-        assertNotNull(revision);
+        assertThat(revision, is(notNullValue()));
         assertThat(revision.getNumber(), is(0));
         assertThat(revision.get(Property.DATE), is(equalTo("2015-08-07T13:52:20.465543Z")));
     }
@@ -116,7 +119,7 @@ public class SvnDumpFileParserTest {
     public void should_parse_uuid() throws IOException, ParseException {
         Repository dump = parse("dumps/empty.dump");
 
-        assertNotNull(dump);
+        assertThat(dump, is(notNullValue()));
         assertThat(dump.getPreamble().getUUID(), is(equalTo("0c9743f5-f757-4bed-a5b3-acbcba4d645b")));
     }
 
@@ -124,7 +127,7 @@ public class SvnDumpFileParserTest {
     public void should_parse_empty_dump() throws IOException, ParseException {
         Repository dump = parse("dumps/empty.dump");
 
-        assertNotNull(dump);
+        assertThat(dump, is(notNullValue()));
 
         List<Revision> revisionList = dump.getRevisions();
 
@@ -133,7 +136,7 @@ public class SvnDumpFileParserTest {
         Revision firstRevision = revisionList.get(0);
 
         assertThat(firstRevision.getNumber(), is(0));
-        assertNotNull(firstRevision.get(Property.DATE));
+        assertThat(firstRevision.get(Property.DATE), is(notNullValue()));
         assertThat(firstRevision.get(Property.DATE), is(equalTo("2015-08-07T13:52:20.465543Z")));
     }
 
@@ -397,7 +400,7 @@ public class SvnDumpFileParserTest {
         assertThat(r2.getNodes().size(), is(1));
 
         Node fileDelete = r2.getNodes().get(0);
-        assertNull(fileDelete.get(NodeHeader.KIND));
+        assertThat(fileDelete.get(NodeHeader.KIND), is(nullValue()));
         assertThat(fileDelete.get(NodeHeader.PATH), is(equalTo("README.txt")));
         assertThat(fileDelete.get(NodeHeader.ACTION), is(equalTo("delete")));
     }

@@ -5,10 +5,10 @@ import org.junit.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class CLTreeNodeImplTest {
     @Test
@@ -29,9 +29,9 @@ public class CLTreeNodeImplTest {
         List<CLTreeNode<String>> children = parentNode.getChildren(s -> s.startsWith("child"));
         assertThat(children.size(), is(3));
         List<String> objectsInside = children.stream().map(CLTreeNode::lookInside).collect(Collectors.toList());
-        assertTrue(objectsInside.contains("child1"));
-        assertTrue(objectsInside.contains("child2"));
-        assertTrue(objectsInside.contains("child3"));
+        assertThat(objectsInside, hasItem("child1"));
+        assertThat(objectsInside, hasItem("child2"));
+        assertThat(objectsInside, hasItem("child3"));
     }
 
     @Test
@@ -62,9 +62,9 @@ public class CLTreeNodeImplTest {
         assertThat(parentNode.getChildren(c->true).size(), is(3));
         List<String> objectsInside = parentNode.getChildren(c->true)
                 .stream().map(CLTreeNode::lookInside).collect(Collectors.toList());
-        assertTrue(objectsInside.contains("child2"));
-        assertTrue(objectsInside.contains("child3"));
-        assertTrue(objectsInside.contains("again, not a child"));
+        assertThat(objectsInside, hasItem("child2"));
+        assertThat(objectsInside, hasItem("child3"));
+        assertThat(objectsInside, hasItem("again, not a child"));
     }
 
     @Test

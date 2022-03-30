@@ -27,9 +27,7 @@ import java.util.function.Predicate;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class FileContentReplaceTest {
     @Test
@@ -127,25 +125,25 @@ public class FileContentReplaceTest {
             ourNode.getHeaders().put(NodeHeader.ACTION, "add");
             ourNode.getHeaders().put(NodeHeader.PATH, "/somepath/is/here.txt");
 
-            assertTrue(nodeMatch.test(ourNode));
+            assertThat(nodeMatch.test(ourNode), is(true));
         }{
             Node ourNode = new NodeImpl(new RevisionImpl(2));
             ourNode.getHeaders().put(NodeHeader.ACTION, "add");
             ourNode.getHeaders().put(NodeHeader.PATH, "/somepath/is/here1.txt");
 
-            assertFalse(nodeMatch.test(ourNode));
+            assertThat(nodeMatch.test(ourNode), is(false));
         }{
             Node ourNode = new NodeImpl(new RevisionImpl(2));
             ourNode.getHeaders().put(NodeHeader.ACTION, "remove");
             ourNode.getHeaders().put(NodeHeader.PATH, "/somepath/is/here.txt");
 
-            assertFalse(nodeMatch.test(ourNode));
+            assertThat(nodeMatch.test(ourNode), is(false));
         }{
             Node ourNode = new NodeImpl(new RevisionImpl(3));
             ourNode.getHeaders().put(NodeHeader.ACTION, "add");
             ourNode.getHeaders().put(NodeHeader.PATH, "/somepath/is/here.txt");
 
-            assertFalse(nodeMatch.test(ourNode));
+            assertThat(nodeMatch.test(ourNode), is(false));
         }
     }
 

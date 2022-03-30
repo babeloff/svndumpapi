@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class NodeImplTest {
 
@@ -58,25 +58,25 @@ public class NodeImplTest {
         {
             assertThat(secondNode.getHeaders().size(), is(3));
 
-            assertTrue(secondNode.getHeaders().containsKey(NodeHeader.ACTION));
+            assertThat(secondNode.getHeaders().containsKey(NodeHeader.ACTION), is(true));
             assertThat("add", is(equalTo(secondNode.getHeaders().get(NodeHeader.ACTION))));
 
-            assertTrue(secondNode.getHeaders().containsKey(NodeHeader.PATH));
+            assertThat(secondNode.getHeaders().containsKey(NodeHeader.PATH), is(true));
             assertThat("someDir", is(equalTo(secondNode.getHeaders().get(NodeHeader.PATH))));
 
-            assertTrue(secondNode.getHeaders().containsKey(NodeHeader.KIND));
+            assertThat(secondNode.getHeaders().containsKey(NodeHeader.KIND), is(true));
             assertThat("dir", is(equalTo(secondNode.getHeaders().get(NodeHeader.KIND))));
         }
         {
             assertThat(secondNode.getProperties().size(), is(3));
 
-            assertTrue(secondNode.getProperties().containsKey("prop1"));
+            assertThat(secondNode.getProperties().containsKey("prop1"), is(true));
             assertThat("valX", is(equalTo(secondNode.getProperties().get("prop1"))));
 
-            assertTrue(secondNode.getProperties().containsKey("prop3"));
+            assertThat(secondNode.getProperties().containsKey("prop3"), is(true));
             assertThat("valZ", is(equalTo(secondNode.getProperties().get("prop3"))));
 
-            assertTrue(secondNode.getProperties().containsKey("prop2"));
+            assertThat(secondNode.getProperties().containsKey("prop2"), is(true));
             assertThat("valY", is(equalTo(secondNode.getProperties().get("prop2"))));
         }
     }
@@ -103,19 +103,19 @@ public class NodeImplTest {
         Node duplicate = new NodeImpl(node);
 
         assertThat(duplicate.getProperties().isEmpty(), is(true));
-        assertFalse(duplicate.getRevision().isPresent());
+        assertThat(duplicate.getRevision().isPresent(), is(false));
         assertThat(duplicate.getHeaders().size(), is(3));
         assertThat(duplicate.get(NodeHeader.ACTION), is(equalTo("add")));
         assertThat(duplicate.get(NodeHeader.KIND), is(equalTo("dir")));
         assertThat(duplicate.get(NodeHeader.PATH), is(equalTo("dir1")));
-        assertTrue(duplicate.getContent().isEmpty());
+        assertThat(duplicate.getContent().isEmpty(), is(true));
     }
 
     @Test
     public void get_properties_should_return_empty_map() {
         NodeImpl node = new NodeImpl();
-        assertNotNull(node.getProperties());
-        assertTrue(node.getProperties().isEmpty());
+        assertThat(node.getProperties(), is(notNullValue()));
+        assertThat(node.getProperties().isEmpty(), is(true));
     }
 
     @Test

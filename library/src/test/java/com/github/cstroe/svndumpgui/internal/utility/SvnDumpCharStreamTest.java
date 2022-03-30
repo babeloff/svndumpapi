@@ -12,7 +12,6 @@ import java.security.NoSuchAlgorithmException;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertArrayEquals;
 
 public class SvnDumpCharStreamTest {
 
@@ -228,7 +227,7 @@ public class SvnDumpCharStreamTest {
             assertThat(firstBuffer.length, is(8192));
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] md5sum_firstBuffer = md5.digest(firstBuffer);
-            assertArrayEquals(md5sum_8192, md5sum_firstBuffer);
+            assertThat(md5sum_8192, equalTo(md5sum_firstBuffer));
         } {
             NEWLINE();
             READ(); COLON(); SPACE(); number = NUMBER(); NEWLINE();
@@ -241,7 +240,7 @@ public class SvnDumpCharStreamTest {
             assertThat(secondBuffer.length, is(10000));
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] md5sum_secondbuffer = md5.digest(secondBuffer);
-            assertArrayEquals(md5sum_10000, md5sum_secondbuffer);
+            assertThat(md5sum_10000, equalTo(md5sum_secondbuffer));
             NEWLINE();
         }
 

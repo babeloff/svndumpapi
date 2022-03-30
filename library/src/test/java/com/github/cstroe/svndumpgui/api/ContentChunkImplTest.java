@@ -4,8 +4,8 @@ import com.github.cstroe.svndumpgui.internal.ContentChunkImpl;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 public class ContentChunkImplTest {
     @Test
