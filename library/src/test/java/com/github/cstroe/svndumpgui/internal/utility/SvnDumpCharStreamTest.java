@@ -239,8 +239,8 @@ public class SvnDumpCharStreamTest {
 
             assertThat(secondBuffer.length, is(10000));
             MessageDigest md5 = MessageDigest.getInstance("MD5");
-            byte[] md5sum_secondbuffer = md5.digest(secondBuffer);
-            assertThat(md5sum_10000, equalTo(md5sum_secondbuffer));
+            byte[] md5sum_secondBuffer = md5.digest(secondBuffer);
+            assertThat(md5sum_10000, equalTo(md5sum_secondBuffer));
             NEWLINE();
         }
 
